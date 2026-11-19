@@ -1,0 +1,10 @@
+work/
+.DS_Store
+
+# tooling: mise keeps only its lock files in the repository
+.mise/*
+!.mise/locks/
+mise.local.toml
+node_modules/
+__pycache__/
+.ruff_cache/

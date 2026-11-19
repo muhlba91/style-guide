@@ -1,0 +1,29 @@
+# Style Guide
+
+> The owner's coding, documentation and writing style as rules with evidence, plus skills to write in it, review against it and keep it current.
+
+## Start Here
+
+- [`AGENTS.md`](AGENTS.md): working rules, rule format, precedence
+- [`README.md`](README.md): layout, skills, install
+
+## Rules
+
+- [`common/principles/README.md`](common/principles/README.md): rules across languages
+- [`common/languages/README.md`](common/languages/README.md): deltas per language
+- [`common/writing/README.md`](common/writing/README.md): README, runbook, prose, commit, PR, email
+- [`common/digest/README.md`](common/digest/README.md): which digest to read per artifact
+- [`common/digest/core.md`](common/digest/core.md): the core rules, read for every task
+- [`CHANGELOG.md`](CHANGELOG.md): rule changes
+- [`common/retired.txt`](common/retired.txt): retired rule IDs, never reused
+- [`scripts/`](scripts/): rule checker, digest builder, `scripts/install.sh` (installs the skills)
+- [`common/evidence/README.md`](common/evidence/README.md): method, weighting and the skill evaluation
+- [`common/evidence/sources.md`](common/evidence/sources.md): which material backs which rules
+- [`OPEN-QUESTIONS.md`](OPEN-QUESTIONS.md): undecided points
+
+## Skills
+
+- [`style-write`](common/skills/style-write/SKILL.md): write in the style
+- [`style-review`](common/skills/style-review/SKILL.md): review against the style
+- [`style-update`](common/skills/style-update/SKILL.md): change the rules with the owner's approval
+- [`style-audit`](common/skills/style-audit/SKILL.md): audit the guide

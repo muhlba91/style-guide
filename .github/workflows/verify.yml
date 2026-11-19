@@ -1,0 +1,64 @@
+---
+name: Verify
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  conform:
+    runs-on: ubuntu-latest
+    name: Conform
+
+    steps:
+      - uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: siderolabs/conform@18598907d4315be915a0c446fdd8aa9b47ba2c22 # v0.1.0-alpha.33
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint
+
+    steps:
+      - uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: jdx/mise-action@236a21c3b91f5db6d4e174b348674a0f0caac06d # v5.2.9
+
+      - run: make lint
+
+  rules:
+    runs-on: ubuntu-latest
+    name: Rules and Digests
+
+    steps:
+      - uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: jdx/mise-action@236a21c3b91f5db6d4e174b348674a0f0caac06d # v5.2.9
+
+      - run: make rules digest-check test

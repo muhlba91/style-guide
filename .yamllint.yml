@@ -1,0 +1,23 @@
+---
+# YAML rules (`make lint`): the long family of YAML-04.
+extends: default
+
+ignore: |
+  /work/
+  .mise/
+  node_modules/
+
+rules:
+  line-length: disable
+  empty-lines:
+    max: 2
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+  brackets:
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+  truthy:
+    check-keys: false
+  comments:
+    min-spaces-from-content: 1
