@@ -20,10 +20,10 @@ checksum = "sha256:aec2514ea1ceb2ba52455e9ec65986f6749a06dd759e5db2a72e6889668c9
 url = "https://nodejs.org/dist/v26.13.1/node-v26.13.1-darwin-arm64.tar.gz"
 
 [[tools."npm:markdownlint-cli2"]]
-version = "0.24.1"
-aube = { path = ".mise/locks/npm-markdownlint-cli2/0.24.1", digest = "sha256:97418abec0a8de4ca28d2ffc156b7c59183a36225c0913917c4bd832054eba30" }
+version = "0.24.2"
+aube = { path = ".mise/locks/npm-markdownlint-cli2/0.24.2", digest = "sha256:db093e2bac71e1c526358d67e3105d4d68674de1f8a7ab8d2150ca4489f89451" }
 backend = "npm:markdownlint-cli2"
-specifiers = ["0.24.1"]
+specifiers = ["0.24.2"]
 
 [[tools.python]]
 version = "3.14.10"
