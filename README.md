@@ -27,7 +27,7 @@ This repository contains the owner's coding, documentation and writing style as 
 | `OPEN-QUESTIONS.md` | Decisions still open. |
 | `CHANGELOG.md` | One line per rule change. |
 | `common/retired.txt` | Retired rule IDs, never reused. |
-| `mise.toml`, `mise.lock`, `.pre-commit-config.yaml`, `.conform.yaml`, `.markdownlint.yaml`, `.yamllint.yml` | Pinned tools, hooks and linter configs. |
+| `mise.toml`, `mise.lock`, `.pre-commit-config.yaml`, `.conform.yaml`, `.markdownlint.yaml` | Pinned tools, hooks and linter configs. |
 | `.github/`, `renovate.json` | CI workflows and Renovate. |
 | `scripts/`, `tests/`, `Makefile` | Quality gate (`make check`) and installer. |
 | `LICENSE.md` | AGPL-3.0. |
@@ -107,11 +107,11 @@ Haiku with the skill came close to Sonnet on small changes. On whole new reposit
 
 ## Continuous Integration and Automations
 
-- GitHub Actions: conform on commit messages, lint, and the rule, digest and test checks (`.github/workflows/verify.yml`), plus dependency review, CodeQL and OpenSSF Scorecard.
+- GitHub Actions: conform on commit messages, lint, actionlint, and the rule, digest and test checks (`.github/workflows/verify.yml`), plus dependency review, CodeQL and OpenSSF Scorecard.
 - Renovate Bot: keeps actions, pre-commit hooks and mise tools current (`renovate.json`).
 
 ## Development
 
-Tool versions (mise, Python, Node, shellcheck, yamllint, markdownlint) are managed with mise: run `mise trust` and `mise install` once, then use `make check` for the gates of CI (conform runs on commit messages instead), `make digest` after a rule change and `make help` for the rest.
+Tool versions (mise, Python, Node, shellcheck, actionlint, markdownlint) are managed with mise: run `mise trust` and `mise install` once, then use `make check` for the gates of CI (conform runs on commit messages instead), `make digest` after a rule change and `make help` for the rest.
 
-Without mise, put python3, shellcheck, yamllint and markdownlint-cli2 on the PATH.
+Without mise, put python3, shellcheck, actionlint and markdownlint-cli2 on the PATH.

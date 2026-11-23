@@ -33,9 +33,10 @@ INDEX_RANGE = re.compile(r"([A-Z][A-Z0-9]*)-(\d{2})(?: to (?:[A-Z][A-Z0-9]*-)?(\
 # configured in the owner's repos (pre-commit, mise, Makefile, pyproject, .golangci, renovate configs):
 # conform (37 repos), golangci-lint (8), shellcheck (10 or more), yamllint (5),
 # markdownlint (5, 3 of them evidence-eligible), hadolint (2), kubeconform (2), renovate (17, includes config validation),
-# ruff (5), typstyle (2), gitleaks (16), pre-commit, mise, pytest-cov (5), mutmut (2), nixfmt (2).
+# ruff (5), typstyle (2), gitleaks (16), pre-commit, mise, pytest-cov (5), mutmut (2), nixfmt (2);
+# actionlint added 2026-11-23 (stated, required in every repo with workflows).
 ALLOWED_TOOLS = {
-    "conform", "golangci-lint", "shellcheck", "yamllint", "markdownlint", "hadolint", "kubeconform",
+    "conform", "golangci-lint", "shellcheck", "yamllint", "actionlint", "markdownlint", "hadolint", "kubeconform",
     "renovate", "ruff", "typstyle", "gitleaks", "pre-commit", "mise", "pytest-cov", "mutmut", "nixfmt",
 }  # fmt: skip
 

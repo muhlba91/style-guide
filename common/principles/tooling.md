@@ -26,12 +26,12 @@
 
 ## PRIN-42 · must · common · stated
 
-- Rule: Lint every file type in the repo (code, Markdown, shell, YAML); the gates pass before work is done.
-- Why: stated in the owner's working notes (ruff, markdownlint, shellcheck, yamllint).
-- Good: the gates `ruff check`, `markdownlint`, `shellcheck` and `yamllint` all pass before the change is called done.
-- Bad: ruff passes while the new `deploy.sh` and `README.md` were never linted.
-- Source: stated 2026-11-15, lint every file type. Evidence: Observed: golangci-lint and ruff in the Go and Python repos; yamllint in several repos; shellcheck in 10 or more pre-commit configs plus CI; markdownlint configured in 5 repos, 3 of them evidence-eligible.
-- Check: judgment (pre-commit and CI run the configured linters; they do not enforce "every file type")
+- Rule: Lint every file type in the repo with the linters that make sense for it (code, Markdown, shell, workflows with actionlint per CI-11); a file type alone does not justify a linter (YAML-04 for yamllint); the gates pass before work is done.
+- Why: stated in the owner's working notes (ruff, markdownlint, shellcheck, yamllint); narrowed 2026-11-23 because a linter that adds no signal only adds maintenance.
+- Good: the gates `ruff check`, `markdownlint`, `shellcheck` and `actionlint` all pass before the change is called done; no `yamllint` in a repo whose only YAML is workflows and tool configs.
+- Bad: ruff passes while the new `deploy.sh` and `README.md` were never linted; or yamllint added only because the repo has a `renovate.json` and workflows.
+- Source: stated 2026-11-15, lint every file type; stated 2026-11-23, only the linters that make sense for the repo. Evidence: Observed: golangci-lint and ruff in the Go and Python repos; yamllint in several repos; shellcheck in 10 or more pre-commit configs plus CI; markdownlint configured in 5 repos, 3 of them evidence-eligible.
+- Check: judgment (pre-commit and CI run the configured linters; they do not enforce which linters fit)
 
 ## PRIN-43 · prefer · common · observed
 
@@ -55,8 +55,8 @@
 
 ## PRIN-50 · must · common · stated
 
-- Rule: Pin the linters in `mise.toml` so one `mise install` provides them.
-- Good: `shellcheck = "0.11.0"` in `[tools]` of `mise.toml`.
-- Bad: shellcheck installed by hand or through the system package manager.
-- Source: stated 2026-11-15, ruff, markdownlint, shellcheck and yamllint pinned in mise. Evidence: the mise sweep of 2026-10-25 (21 of 29 commits trailered at 0.75, the rest 0.5); the four linters appear in mise configs.
+- Rule: Pin the linters in `mise.toml` so one `mise install` provides them, except yamllint, which comes from a local install and is never listed in `mise.toml` (YAML-04).
+- Good: `shellcheck = "0.11.0"` and `actionlint = "1.7.12"` in `[tools]` of `mise.toml`.
+- Bad: shellcheck installed by hand or through the system package manager; `yamllint` in `mise.toml`.
+- Source: stated 2026-11-15, ruff, markdownlint, shellcheck and yamllint pinned in mise; stated 2026-11-23, yamllint removed from mise (its mise build breaks repos on Python 3.15) and used from a local install. Evidence: the mise sweep of 2026-10-25 (21 of 29 commits trailered at 0.75, the rest 0.5); ruff, markdownlint and shellcheck appear in mise configs; actionlint is new (stated).
 - Check: judgment

@@ -29,7 +29,7 @@ Deltas against `../principles/`. Evidence: workflows in home-cluster application
 
 ## CI-04 · prefer · github-actions · observed
 
-- Rule: Use one job per gate (`conform`, `lint`, `shellcheck`, `ruff`, `kubeconform`, tests); preview and deploy jobs list the gates in a multi-line `needs:`.
+- Rule: Use one job per gate (`conform`, `lint`, `actionlint`, `shellcheck`, `ruff`, `kubeconform`, tests); preview and deploy jobs list the gates in a multi-line `needs:`.
 - Why: previews do not depend on `conform`, so a commit message problem does not block them (`aad0f91`, 2026-11).
 - Source: applications `pipeline.yml`, `pr.yml`; github-infrastructure `pr.yml`.
 - Check: judgment
@@ -58,7 +58,7 @@ Deltas against `../principles/`. Evidence: workflows in home-cluster application
 
 - Rule: Write a single-command step as a one-line `run:`; use `run: |` for several commands.
 - Why: applications uses the block form for one command, github-infrastructure the one-line form.
-- Good: `run: yamllint .`
+- Good: `run: actionlint`
 - Source: stated 2026-11-18, `run:` form. Evidence: both repos, 2023-2026.
 - Check: judgment
 
@@ -69,3 +69,12 @@ Deltas against `../principles/`. Evidence: workflows in home-cluster application
 - Bad: the conform step runs on a shallow checkout and cannot see the PR commits.
 - Source: github-infrastructure `pr.yml`, 37 repos with `.conform.yaml`.
 - Check: judgment (conform helps)
+
+## CI-11 · must · github-actions · stated
+
+- Rule: Run actionlint in every repo with GitHub Actions workflows, as a pre-commit hook and as a job of the verify or pull request workflow that is a required check; install it in CI with `jdx/mise-action` and pin it in `mise.toml` (PRIN-50).
+- Why: a broken expression or an invalid input fails only when the workflow runs; the repo's other linters do not read workflows.
+- Good: a `.pre-commit-config.yaml` hook `rhysd/actionlint` and an `actionlint` job in the pull request workflow that runs `actionlint`, with the job in the required status checks.
+- Bad: workflows linted by yamllint only, or an actionlint job that is not required to pass.
+- Source: stated 2026-11-23, actionlint in all repos with workflows.
+- Check: tool:actionlint

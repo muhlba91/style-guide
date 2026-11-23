@@ -2,6 +2,15 @@
 
 One line per change to the rules: date, rule ID, what changed. Written by `style-update`. Retired IDs are in `common/retired.txt`.
 
+## 2026-11-23
+
+- PRIN-42: lint with the linters that make sense for the repo; a file type alone does not justify one.
+- PRIN-50: yamllint is the exception to pinning linters in `mise.toml`; it comes from a local install (its mise build breaks Python 3.15 repos).
+- YAML-04: yamllint only where hand-written YAML is a main artifact, from a local install.
+- CI-11 (new): actionlint in every repo with workflows, as a pre-commit hook and a required PR job. CI-04 gate list and CI-09 example follow.
+- Guide repo: yamllint removed (mise, `.yamllint.yml`, `lint-yaml`), actionlint added (mise, pre-commit hook, `verify.yml` job). YAML-01 and YAML-03 checks are judgment.
+- New Repository Checklist: linter configs only where the linter fits; actionlint for workflows.
+
 ## 2026-11-19
 
 - CI-01: when every job of a workflow needs the same permissions, set exactly those scopes once at the top level (never `write-all`). The guide's `scorecard.yml` now uses top-level `contents: read` (was `read-all`).

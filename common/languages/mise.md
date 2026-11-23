@@ -33,4 +33,4 @@ Deltas against `../principles/` (PRIN-39 holds the pinning rule). Evidence: `mis
 
 ## Note on Linters
 
-PRIN-42 names markdownlint, ruff, shellcheck and yamllint. Ruff, golangci-lint and yamllint are configured in the owner's main repos; shellcheck runs as a pre-commit hook in several; markdownlint config exists in a few repos.
+PRIN-42 names markdownlint, ruff, shellcheck and actionlint; yamllint comes from a local install and is not in mise (YAML-04). Ruff and golangci-lint are configured in the owner's main repos, yamllint in 4 of 5 spot-checked repos; shellcheck runs as a pre-commit hook in several; markdownlint config exists in a few repos.

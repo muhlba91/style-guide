@@ -6,7 +6,7 @@ Deltas against `../principles/`. A rule that holds in several languages lives in
 
 | File | IDs | Topic |
 | --- | --- | --- |
-| [`github-actions.md`](github-actions.md) | CI-01 to 05, CI-07 to 10 | workflows |
+| [`github-actions.md`](github-actions.md) | CI-01 to 05, CI-07 to 11 | workflows |
 | [`go.md`](go.md) | GO-01 to 29 | Go |
 | [`makefile.md`](makefile.md) | MAKE-01 to 09 | Makefiles |
 | [`mise.md`](mise.md) | MISE-01 to 04 | mise.toml |

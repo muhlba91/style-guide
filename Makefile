@@ -2,13 +2,13 @@
 
 PYTHON       ?= python3
 SHELLCHECK   ?= shellcheck
+ACTIONLINT   ?= actionlint
 MARKDOWNLINT ?= markdownlint-cli2
-YAMLLINT     ?= yamllint
 
 SHELL_SCRIPTS := $(wildcard scripts/*.sh)
 
 .DEFAULT_GOAL := help
-.PHONY: help check lint lint-shell lint-markdown lint-yaml rules digest digest-check test skills install
+.PHONY: help check lint lint-shell lint-markdown lint-actions rules digest digest-check test skills install
 
 help:  ## list the targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-16s %s\n", $$1, $$2}'
@@ -16,16 +16,16 @@ help:  ## list the targets
 check: lint rules digest-check test  ## everything a finished change must pass
 	@echo "ALL CHECKS PASSED"
 
-lint: lint-shell lint-markdown lint-yaml  ## all linters, read-only
+lint: lint-shell lint-markdown lint-actions  ## all linters, read-only
 
 lint-shell:  ## shellcheck on the scripts
 	$(SHELLCHECK) -x $(SHELL_SCRIPTS)
 
+lint-actions:  ## actionlint on the workflows
+	$(ACTIONLINT)
+
 lint-markdown:  ## markdownlint (.markdownlint.yaml)
 	$(MARKDOWNLINT) "**/*.md" "#LICENSE.md" "#work" "#.mise" "#node_modules" "#common/digest"
-
-lint-yaml:  ## yamllint (.yamllint.yml)
-	$(YAMLLINT) --strict .
 
 rules:  ## structure and content checks of the rule files (scripts/check_rules.py)
 	$(PYTHON) scripts/check_rules.py

@@ -13,14 +13,14 @@ Full rules, evidence and examples: `common/principles/tooling.md`.
 - PRIN-41 must: Let Renovate propose version updates; do not bump pinned versions by hand unless a bump needs a code change.
   Good: merge the Renovate PR `chore(deps): update nginx to v1.27.3`.
   Bad: edit the pinned `1.27.2` to `1.27.3` by hand with no code change.
-- PRIN-42 must: Lint every file type in the repo (code, Markdown, shell, YAML); the gates pass before work is done.
-  Good: the gates `ruff check`, `markdownlint`, `shellcheck` and `yamllint` all pass before the change is called done.
-  Bad: ruff passes while the new `deploy.sh` and `README.md` were never linted.
+- PRIN-42 must: Lint every file type in the repo with the linters that make sense for it (code, Markdown, shell, workflows with actionlint per CI-11); a file type alone does not justify a linter (YAML-04 for yamllint); the gates pass before work is done.
+  Good: the gates `ruff check`, `markdownlint`, `shellcheck` and `actionlint` all pass before the change is called done; no `yamllint` in a repo whose only YAML is workflows and tool configs.
+  Bad: ruff passes while the new `deploy.sh` and `README.md` were never linted; or yamllint added only because the repo has a `renovate.json` and workflows.
 - PRIN-43 prefer: Fix the code instead of loosening the linter; keep one shared lint config per language across repos.
 - PRIN-44 must: Suppress a finding only with a narrow, named suppression and a written reason; remove it when the cause is gone. [tool:golangci-lint]
   Good: `//nolint:mnd // 0o600 is the correct permission for private keys`
   Bad: `//nolint`
 - PRIN-45 prefer: Expose the same task names in every repo: `lint`, `fix`, `test`, `coverage` (Makefile or mise tasks).
-- PRIN-50 must: Pin the linters in `mise.toml` so one `mise install` provides them.
-  Good: `shellcheck = "0.11.0"` in `[tools]` of `mise.toml`.
-  Bad: shellcheck installed by hand or through the system package manager.
+- PRIN-50 must: Pin the linters in `mise.toml` so one `mise install` provides them, except yamllint, which comes from a local install and is never listed in `mise.toml` (YAML-04).
+  Good: `shellcheck = "0.11.0"` and `actionlint = "1.7.12"` in `[tools]` of `mise.toml`.
+  Bad: shellcheck installed by hand or through the system package manager; `yamllint` in `mise.toml`.

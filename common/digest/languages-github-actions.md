@@ -13,7 +13,7 @@ Full rules, evidence and examples: `common/languages/github-actions.md`.
 - CI-03 must: Start every job with `step-security/harden-runner` using `egress-policy: audit`, then `actions/checkout`.
   Good: first step `uses: step-security/harden-runner@<sha> # vX.Y.Z` with `egress-policy: audit`, second step `actions/checkout`.
   Bad: a job that starts with `actions/checkout` and has no harden-runner.
-- CI-04 prefer: Use one job per gate (`conform`, `lint`, `shellcheck`, `ruff`, `kubeconform`, tests); preview and deploy jobs list the gates in a multi-line `needs:`.
+- CI-04 prefer: Use one job per gate (`conform`, `lint`, `actionlint`, `shellcheck`, `ruff`, `kubeconform`, tests); preview and deploy jobs list the gates in a multi-line `needs:`.
 - CI-05 prefer: Install tools with `jdx/mise-action` from `mise.toml`; separate setup actions only restore caches, with a comment saying so.
 - CI-07 lean: Release containers and libraries with release-please (`include-v-in-tag: true`, PR title `chore(release): release ${version}`) and build multi-arch (`linux/amd64,linux/arm64`) with buildx.
 - CI-08 must: Name workflow files `pipeline.yml`, `pr.yml`, `dependency_review.yml`, `scorecard.yml`, `codeql.yml`, `release.yml`, `verify.yml` with the `.yml` extension.
@@ -23,3 +23,6 @@ Full rules, evidence and examples: `common/languages/github-actions.md`.
 - CI-10 must: Run conform on pull requests with `fetch-depth: 0`, in addition to the commit-msg hook (COMMIT-20).
   Good: `uses: actions/checkout@<sha> # vX.Y.Z` with `fetch-depth: 0` before the conform step.
   Bad: the conform step runs on a shallow checkout and cannot see the PR commits.
+- CI-11 must: Run actionlint in every repo with GitHub Actions workflows, as a pre-commit hook and as a job of the verify or pull request workflow that is a required check; install it in CI with `jdx/mise-action` and pin it in `mise.toml` (PRIN-50). [tool:actionlint]
+  Good: a `.pre-commit-config.yaml` hook `rhysd/actionlint` and an `actionlint` job in the pull request workflow that runs `actionlint`, with the job in the required status checks.
+  Bad: workflows linted by yamllint only, or an actionlint job that is not required to pass.
